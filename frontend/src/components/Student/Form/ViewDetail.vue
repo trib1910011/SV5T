@@ -188,7 +188,6 @@ export default {
     },
     created() {
         this.viewDetail()
-        this.showForm
         // this.viewData(this.dataParent)
     },
     methods: {
@@ -209,13 +208,12 @@ export default {
                 },
                 
             )
+            
             this.$store.commit("SET_TOAST", {
                 message: res.data.message,
                 isSuccess: res.data.status,
             })
-            
         },
-
         viewDetail() {
             try {
                 let data = JSON.parse(localStorage.getItem('view_detail_form'))

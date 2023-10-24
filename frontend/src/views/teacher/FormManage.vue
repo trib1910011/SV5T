@@ -189,4 +189,7 @@ export default {
 }
 
 .table-wrapper-scroll-y {
-    
+    display: block;
+}
+</style>
+                        
