@@ -6,8 +6,9 @@ import categoryListModule from "./categoryList.js";
 import categoryUpdate from "./categoryUpdate.js";
 import standardListModule from "./standardList.js";
 import standardUpdate from "./standardUpdate.js";
+import formListModule from "./formList.js";
 const ministryModule = {
-    modules: { teacherModule, companyModule ,spellListModule, spellUpdate, categoryListModule, categoryUpdate, standardListModule, standardUpdate},
+    modules: { teacherModule, companyModule ,spellListModule, spellUpdate, categoryListModule, categoryUpdate, standardListModule, standardUpdate, formListModule},
     state() {
         return {
             isShowDetail: false,

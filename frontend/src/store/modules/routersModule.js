@@ -11,6 +11,7 @@ const routersModule = {
             { name: "Quản lý đợt đăng ký SV5T", path: "/ministry/spellmanage"},
             { name: "Quản lý tiêu chí", path: "/ministry/categorymanage"},
             { name: "Quản lý chi tiết tiêu chí", path: "/ministry/standardmanage"},
+            { name: "Quản lý đơn", path: "/ministry/formmanage"},
         ],
         adminRoutes: [
             { name: "Trang chủ", path: "/admin/home" },

@@ -21,12 +21,9 @@
                                 <strong>NGÀNH: </strong> {{ item.major }}<br>
                                 <strong>KHÓA: </strong> {{ item.course }}<br>
                             </template>
-                            <div v-for="(item, index) in spell" :key="index">
-                                <div v-if="item.status == 'Bắt đầu'">
-                                    <strong>ĐỢT: </strong> {{ item.name }}
+                                <div >
+                                    <strong>ĐỢT: </strong> {{ dataParent.name }}
                                 </div>
-
-                            </div>
 
 
 
@@ -35,11 +32,11 @@
                         <div class="col-6 mt-3">
                             <div>
                                 <strong>GPA: </strong>
-                                <input class="gpa" require type="text" style="width: 50px;" v-model="gpa">
+                                <input class="gpa" type="text" style="width: 50px;" v-model="gpa">
                             </div>
                             <div>
                                 <strong>ĐIỂM RÈN LUYỆN: </strong>
-                                <input class="drl" require type="text" style="width: 50px;" v-model="drl">
+                                <input class="drl" type="text" style="width: 50px;" v-model="drl">
                             </div>
                         </div>
                     </div>
@@ -54,7 +51,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <!-- <tr>
                                         <th scope="row">I</th>
                                         <td style="font-weight: bold">Đạo đức tốt</td>
                                     </tr>
@@ -152,6 +149,107 @@
                                                 name="" id="" cols="10" rows="3" class="form-control"
                                                 v-model="more"></textarea>
                                         </td>
+                                    </tr> -->
+                                    <tr>
+                                        <th scope="row">I</th>
+                                        <td style="font-weight: bold">Đạo đức tốt</td>
+                                    </tr>
+                                    <tr v-for="fruit in dataParent.structure" :key="fruit.id">
+                                        <template v-if="fruit.split('-')[0] == 'DD'">
+                                            <th scope="row"></th>
+                                            <td>{{ fruit.split("-")[1] }}</td>
+                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
+                                                    class="standard_check_box"
+                                                    v-bind:data-standard="(`${fruit}`)"
+                                                    ></td>
+                                        </template>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">II</th>
+                                        <td style="font-weight: bold">
+                                            Học tập tốt
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
+                                    </tr>
+                                    <tr v-for="fruit in dataParent.structure" :key="fruit.id">
+                                        <template v-if="fruit.split('-')[0] == 'HT'">
+                                            <th scope="row"></th>
+                                            <td>{{ fruit.split("-")[1] }}</td>
+                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
+                                                    class="standard_check_box"
+                                                    v-bind:data-standard="(`${fruit}`)"
+                                                    ></td>
+                                        </template>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">III</th>
+                                        <td style="font-weight: bold">Thể lực tốt</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
+                                    </tr>
+                                    <tr v-for="fruit in dataParent.structure" :key="fruit.id">
+                                        <template v-if="fruit.split('-')[0] == 'TL'">
+                                            <th scope="row"></th>
+                                            <td>{{ fruit.split("-")[1] }}</td>
+                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
+                                                    class="standard_check_box"
+                                                    v-bind:data-standard="(`${fruit}`)"
+                                                    ></td>
+                                        </template>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">IV</th>
+                                        <td style="font-weight: bold">Tình nguyện tốt</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
+                                    </tr>
+                                    <tr v-for="fruit in dataParent.structure" :key="fruit.id">
+                                        <template v-if="fruit.split('-')[0] == 'TN'">
+                                            <th scope="row"></th>
+                                            <td>{{ fruit.split("-")[1] }}</td>
+                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
+                                                    class="standard_check_box"
+                                                    v-bind:data-standard="(`${fruit}`)"
+                                                    ></td>
+                                        </template>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">V</th>
+                                        <td style="font-weight: bold">Hội nhập tốt</td>
+                                    </tr>
+                                    
+                                    <tr v-for="fruit in dataParent.structure" :key="fruit.id">
+                                        <template v-if="fruit.split('-')[0] == 'HN'">
+                                            <th scope="row"></th>
+                                            <td>{{ fruit.split("-")[1] }}</td>
+                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
+                                                    class="standard_check_box"
+                                                    v-bind:data-standard="(`${fruit}`)"
+                                                    ></td>
+                                        </template>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td style="font-weight: bold">Các hoạt động tiêu biểu khác:</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <textarea placeholder="Điền các hoạt động đã tham gia (ghi ngày cụ thể)..."
+                                                name="" id="" cols="10" rows="3" class="form-control"
+                                                v-model="more"></textarea>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -164,7 +262,7 @@
                         </button>
 
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="handleAssess"
-                            :disabled="!gpa || !drl">
+                            >
                             Xác nhận
                         </button>
                     </div>
@@ -179,46 +277,42 @@
 import axios from "axios";
 export default {
     name: "CreateForm",
-
+    props: ['dataParent'],
     data() {
         return {
-            student: [],
-            spell: [],
-            standards: [],
-            gpa: "",
-            drl: "",
-            more: "",
+            passData: {},
+            structure: [],
         };
     },
     created() {
-        this.showSpell()
-        this.getStandard()
+        // this.showSpell()
+        // this.getStandard()
         this.showInforStudent()
     },
     methods: {
-        async showSpell() {
-            const data = await axios.get("http://localhost:3000/spell/get-all-spell")
+        // async showSpell() {
+        //     const data = await axios.get("http://localhost:3000/spell/get-all-spell")
 
 
-            const arr_data = data.data.findSpell;
+        //     const arr_data = data.data.findSpell;
 
-            const arr_result = arr_data.map((item, index) => {
-                return {
-                    id: item._id,
-                    stt: index + 1,
-                    spellname: item.spellname,
-                    name: item.name,
-                    start: item.start,
-                    end: item.end,
-                    status: item.status ? 'Bắt đầu' : 'Kết thúc'
-                }
+        //     const arr_result = arr_data.map((item, index) => {
+        //         return {
+        //             id: item._id,
+        //             stt: index + 1,
+        //             spellname: item.spellname,
+        //             name: item.name,
+        //             start: item.start,
+        //             end: item.end,
+        //             status: item.status ? 'Bắt đầu' : 'Kết thúc'
+        //         }
 
 
-            })
+        //     })
 
-            this.spell = arr_result;
+        //     this.spell = arr_result;
 
-        },
+        // },
         async handleAssess() {
             var arr_standard = []
             let DOM_Checkbox_standart = document.querySelectorAll(".standard_check_box");
@@ -229,28 +323,26 @@ export default {
                 }
             })
 
-            let spell_name_choose = ""
-            this.spell.forEach((item) => {
-                if (item.status === "Bắt đầu") {
-                    spell_name_choose = item.name
-                }
-            })
+            // let spell_name_choose = ""
+            // this.spell.forEach((item) => {
+            //     if (item.status === "Bắt đầu") {
+            //         spell_name_choose = item.name
+            //     }
+            // })
 
             const ob = {
                 studentId: this.student[0].id,
-                username: this.username,
-                name: this.name,
                 major: this.student[0].major,
                 course: this.student[0].course,
-                spellname: spell_name_choose,
+                spellname: this.dataParent.name,
                 gpa: this.gpa,
                 drl: this.drl,
                 standard: arr_standard,
                 more: this.more,
                 count_check: this.count_check
             }
-
-
+           
+            console.log(ob)
             const token = localStorage.getItem("token");
 
             const res = await axios.post("http://localhost:3000/student/register-form",

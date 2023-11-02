@@ -17,6 +17,8 @@ import FormCreate from "../components/Student/Form/CreateForm.vue";
 import CategoryManage from "../views/ministry/CategoryManage.vue";
 import StandardManage from "../views/ministry/StandardManage.vue";
 import DashBoardComponent from "../views/admin/AdminDashboard.vue";
+import FormManageMini from "../views/ministry/FormManage.vue";
+import CommendStudent from "../views/student/Commend.vue";
 
 const routes = [
     { path: "/", component: Home },
@@ -40,7 +42,8 @@ const routes = [
             { path: "/ministry/home", component: HomePage },
             { path: "/ministry/spellmanage", component: SpellManage },
             { path: "/ministry/categorymanage", component: CategoryManage },
-            { path: "/ministry/standardmanage", component: StandardManage }
+            { path: "/ministry/standardmanage", component: StandardManage },
+            { path: "/ministry/formmanage", component: FormManageMini }
         ]
     },
     {
@@ -60,7 +63,8 @@ const routes = [
                 component: UpdateInfor,
             },
             { path: "/student/formregistermanage", component: FormRegister},
-            { path: "/student/formregistermanage/register", component: FormCreate}
+            { path: "/student/formregistermanage/register", component: FormCreate},
+            { path: "/student/commend", component: CommendStudent},
         ]
     },
     {

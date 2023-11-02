@@ -129,7 +129,6 @@ export default {
                    
                     
                 );
-                console.log(res)
                 this.$store.commit("SET_TOAST", {
                     message: res.data.message,
                     isSuccess: res.data.status,

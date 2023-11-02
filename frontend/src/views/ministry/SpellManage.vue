@@ -16,6 +16,12 @@
                                 Ngày kết thúc
                             </th>
                             <th class="text-center" scope="col">
+                                Phân công xét duyệt
+                            </th>
+                            <th class="text-center" scope="col">
+                                Cấu trúc đơn
+                            </th>
+                            <th class="text-center" scope="col">
                                 Trạng thái
                             </th>
                             <th class="text-center" scope="col">
@@ -35,9 +41,23 @@
                             <td class="text-center">{{ item.name }}</td>
                             <td class="text-center">{{ item.start }}</td>
                             <td class="text-center">{{ item.end }}</td>
+
+                            <td class="text-center">
+                                <template v-for="allocateItem in item.allocate" :key="allocateItem.id">
+                                    <template v-if="allocateItem.length > 0">
+                               
+                                            {{ allocateItem  }} <br>
+                                             
+                                     
+                                    </template>
+
+                                </template>
+                            </td>
+                            <td class="text-center"><button type="button" class="btn btn-outline-primary p-2" data-bs-toggle="modal" data-bs-target="#ViewStructure" @click="viewDetail(item.id)"><i class="bi bi-eye-fill"></i> Xem</button></td>
                             <td class="text-center">{{ item.status }}</td>
                             <td class="text-center">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editInforSpellStatus"
+                                <button type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#editInforSpellStatus"
                                     @click="handleupdateStatus(item.id, item.status)">
                                     <i class="bi bi-arrow-left-right text-success fs-5"> </i>
                                 </button>
@@ -64,6 +84,7 @@
         </div>
         <CreateSpell></CreateSpell>
         <EditSpell></EditSpell>
+        <ViewStructure v-bind:dataParent="passData"></ViewStructure>
     </div>
 </template>
 
@@ -73,15 +94,16 @@ import config from "@/config/index.js";
 import TitleStructure from "../../components/GlobalComponent/TitleStructure.vue";
 import CreateSpell from "../../components/Ministry/ManageSpell/CreateSpell.vue";
 import EditSpell from "@/components/Ministry/ManageSpell/EditSpell.vue";
-
+import ViewStructure from "@/components/Ministry/ManageSpell/ViewStructure.vue";
 
 export default {
     name: "SpellManage",
-    components: { TitleStructure, CreateSpell, EditSpell },
+    components: { TitleStructure, CreateSpell, EditSpell, ViewStructure },
     data() {
         return {
             spell: [],
             spellUpdate: {},
+            passData: {}
         };
     },
     created() {
@@ -102,7 +124,9 @@ export default {
                     name: item.name,
                     start: item.start,
                     end: item.end,
-                    status: item.status ? 'Bắt đầu' : 'Kết thúc'
+                    status: item.status ? 'Bắt đầu' : 'Kết thúc',
+                    allocate: item.allocate,
+                    structure: item.structure
                 }
 
 
@@ -120,11 +144,11 @@ export default {
                 const check_update = await axios.patch(`http://localhost:3000/spell/updateOneSpell/${id_input}`, { status: !status_get })
                 if (check_update) {
                     this.$store.commit("SET_TOAST", {
-                    message: check_update.data.message,
-                    isSuccess: check_update.data.status,
+                        message: check_update.data.message,
+                        isSuccess: check_update.data.status,
                     });
                     this.showSpell()
-                } 
+                }
             } catch (e) {
                 console.log(e)
             }
@@ -154,7 +178,19 @@ export default {
         handleSetUpdate(spell) {
             this.$store.commit("SET_SPELL_UPDATE", spell);
         },
-
+        async viewDetail(id_input) {
+            await axios.get(`http://localhost:3000/spell/get-spell-id/${id_input}`, {
+            }).then((data) => {
+                const ob = {
+                    data: data.data.findSpell
+                }
+                localStorage.setItem('view_detail_form', JSON.stringify(ob))
+                this.passData = data.data.findSpell
+            }).catch((e) => {
+                console.log(e)
+            })
+            
+        },
     }
 };
 </script>

@@ -142,7 +142,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                     <div v-if="st.rule == 'TEACHER' && this.checkShowDOM == true" class="modal-footer"
@@ -151,11 +150,11 @@
                             @click="UpdateForm(dataParent._id, st.id, 'Đạt')">
                             Đạt
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" 
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                             @click="UpdateForm(dataParent._id, st.id, 'Chưa đạt')">
                             Chưa đạt
                         </button>
-                        
+
 
                     </div>
                     <div v-else-if="st.rule == 'TEACHER' && this.checkShowDOM == false" class="modal-footer"
@@ -187,8 +186,16 @@ export default {
         };
     },
     created() {
-        this.viewDetail()
-        // this.viewData(this.dataParent)
+        setTimeout(() => {
+
+            this.viewDetail()
+        }, 5000)
+    },
+    mounted() {
+        setInterval(()=>{
+            this.viewDetail()
+
+        },100)
     },
     methods: {
         // viewData: (dataParent) => {
@@ -206,9 +213,9 @@ export default {
                 {
                     headers: { Authorization: "Bearer " + token },
                 },
-                
+
             )
-            
+
             this.$store.commit("SET_TOAST", {
                 message: res.data.message,
                 isSuccess: res.data.status,
@@ -217,6 +224,7 @@ export default {
         viewDetail() {
             try {
                 let data = JSON.parse(localStorage.getItem('view_detail_form'))
+                console.log(data)
                 if (data) {
                     const checkShow = data.id_teacher;
 
@@ -228,20 +236,19 @@ export default {
 
                     const check = arr_new.includes(checkShow)
 
+                    console.log(check)
                     check ? this.checkShowDOM = false : this.checkShowDOM = true
                 }
             } catch (e) {
                 console.log(e)
             }
 
-            
+
         },
     },
 
     computed: {
         ...mapGetters({ st: "getAccount" }),
-
-
 
     },
 

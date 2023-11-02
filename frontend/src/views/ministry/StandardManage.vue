@@ -4,15 +4,15 @@
         <div class="type-account col-12 d-flex justify-content-center">
             <div class="type__item" @click="handleFilter($event)">Tất cả</div>
             <div class="type__item" @click="handleFilter($event)">Đạo đức tốt</div>
-            <div class="type__item" @click="handleFilter($event)">Học tập tốt</div> 
-            <div class="type__item" @click="handleFilter($event)">Thể lực tốt</div> 
-            <div class="type__item" @click="handleFilter($event)">Tình nguyện tốt</div> 
-            <div class="type__item" @click="handleFilter($event)">Hội nhập tốt</div> 
+            <div class="type__item" @click="handleFilter($event)">Học tập tốt</div>
+            <div class="type__item" @click="handleFilter($event)">Thể lực tốt</div>
+            <div class="type__item" @click="handleFilter($event)">Tình nguyện tốt</div>
+            <div class="type__item" @click="handleFilter($event)">Hội nhập tốt</div>
             <!-- <div v-for="(item) in categories" :key="item" class="type__item" @click="handleFilter($event)">
                 {{ item.categoryName }}
             </div> -->
         </div>
-        <div class="mt-5 table-wrapper-scroll-y my-custom-scrollbar">
+        <div class="mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead">
             <table class="table table-striped">
                 <thead>
                     <th class="text-center">#</th>
@@ -36,14 +36,14 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in standard" :key="index">
-                        <template v-if="item.categoryName== this.click">
+                        <template v-if="item.categoryName == this.click">
                             <td class="text-center" scope="row">
                                 {{ item.stt }}
                             </td>
 
                             <td class="text-center">{{ item.codeStandard }}</td>
                             <td class="text-center">{{ item.categoryName }}</td>
-                            <td >{{ item.contentStandard }}</td>
+                            <td>{{ item.contentStandard }}</td>
                             <td class="text-center">{{ item.status }}</td>
                             <td class="text-center">
                                 <button type="button" class="btn" data-bs-toggle="modal"
@@ -58,8 +58,9 @@
                                     data-bs-target="#editInforStandard">
                                     <i class="bi bi-pencil-square text-warning fs-5" @click="handleSetUpdate(item)"></i>
                                 </button>
-                                <button type="button" class="btn" >
-                                    <i class="bi bi-archive-fill text-danger fs-5" @click="handleDeleteStandard(item.id)"></i>
+                                <button type="button" class="btn">
+                                    <i class="bi bi-archive-fill text-danger fs-5"
+                                        @click="handleDeleteStandard(item.id)"></i>
                                 </button>
                             </td>
                         </template>
@@ -70,7 +71,7 @@
 
                             <td class="text-center">{{ item.codeStandard }}</td>
                             <td class="text-center">{{ item.categoryName }}</td>
-                            <td >{{ item.contentStandard }}</td>
+                            <td>{{ item.contentStandard }}</td>
                             <td class="text-center">{{ item.status }}</td>
                             <td class="text-center">
                                 <button type="button" class="btn" data-bs-toggle="modal"
@@ -85,8 +86,9 @@
                                     data-bs-target="#editInforStandard">
                                     <i class="bi bi-pencil-square text-warning fs-5" @click="handleSetUpdate(item)"></i>
                                 </button>
-                                <button type="button" class="btn" >
-                                    <i class="bi bi-archive-fill text-danger fs-5" @click="handleDeleteStandard(item.id)"></i>
+                                <button type="button" class="btn">
+                                    <i class="bi bi-archive-fill text-danger fs-5"
+                                        @click="handleDeleteStandard(item.id)"></i>
                                 </button>
                             </td>
                         </template>
@@ -125,7 +127,7 @@ export default {
     },
     created() {
         this.showStandard(),
-        this.getCategory()
+            this.getCategory()
     },
     mounted() {
         document.querySelectorAll(".type__item")[0].classList.add("active");
@@ -254,21 +256,21 @@ export default {
         },
         handleFilter(event) {
 
-                const filter = event.target.innerText;
+            const filter = event.target.innerText;
             this.click = filter
-                if(filter=="categoryName"){
-                    this.$store.commit(
+            if (filter == "categoryName") {
+                this.$store.commit(
                     "SET_STANDARD_CURRENT",
                     this.standards.filter((standard) => standard.categoryName),
                 );
 
                 this.showStandard()
-                }
+            }
 
-                
-            
-            
-           
+
+
+
+
         },
     }
 };
@@ -296,5 +298,15 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 }
-</style>
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}</style>
                         

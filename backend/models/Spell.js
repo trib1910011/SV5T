@@ -16,6 +16,16 @@ const spellSchema = new Schema({
     end: {
         type: String
     },
+    allocate: {
+        type: Array,
+        of  : String,
+        default: null,
+    },
+    structure: {
+        type: Array,
+        of  : String,
+        default: null,
+    },
     status: {
         type: Boolean,
         default: true,

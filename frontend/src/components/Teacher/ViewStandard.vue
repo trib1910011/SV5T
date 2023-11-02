@@ -27,12 +27,16 @@
                                         <th scope="row">I</th>
                                         <td style="font-weight: bold">Đạo đức tốt</td>
                                     </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Đạo đức tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                        </template>
+                                    <tr>
 
+                                        <th scope="row"></th>
+                                        <template v-for="fruit in dataParent.structure" :key="fruit.id">
+                                            <template v-if="fruit.split('-')[0] == 'DD'">
+                                                - {{ fruit.split("-")[1] }} <br>
+                                            </template>
+
+
+                                        </template>
                                     </tr>
                                     <tr>
                                         <th scope="row">II</th>
@@ -41,60 +45,60 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Học tập tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                        </template>
 
+                                        <th scope="row"></th>
+                                        <template v-for="fruit in dataParent.structure" :key="fruit.id">
+                                            <template v-if="fruit.split('-')[0] == 'HT'">
+                                                - {{ fruit.split("-")[1] }} <br>
+                                            </template>
+
+
+                                        </template>
                                     </tr>
                                     <tr>
                                         <th scope="row">III</th>
                                         <td style="font-weight: bold">Thể lực tốt</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Thể lực tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                        </template>
 
+                                        <th scope="row"></th>
+                                        <template v-for="fruit in dataParent.structure" :key="fruit.id">
+                                            <template v-if="fruit.split('-')[0] == 'TL'">
+                                                - {{ fruit.split("-")[1] }} <br>
+                                            </template>
+
+
+                                        </template>
                                     </tr>
                                     <tr>
                                         <th scope="row">IV</th>
                                         <td style="font-weight: bold">Tình nguyện tốt</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Tình nguyện tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                        </template>
 
+                                        <th scope="row"></th>
+                                        <template v-for="fruit in dataParent.structure" :key="fruit.id">
+                                            <template v-if="fruit.split('-')[0] == 'TN'">
+                                                - {{ fruit.split("-")[1] }} <br>
+                                            </template>
+
+
+                                        </template>
                                     </tr>
                                     <tr>
                                         <th scope="row">V</th>
                                         <td style="font-weight: bold">Hội nhập tốt</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 2 trong 3 tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Hội nhập tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                        </template>
 
+                                        <th scope="row"></th>
+                                        <template v-for="fruit in dataParent.structure" :key="fruit.id">
+                                            <template v-if="fruit.split('-')[0] == 'HN'">
+                                                - {{ fruit.split("-")[1] }} <br>
+                                            </template>
+
+
+                                        </template>
                                     </tr>
                                 </tbody>
                             </table>
@@ -108,53 +112,17 @@
 </template>
 
 <script>
-// import config from "@/config";
-import axios from "axios";
+// import axios from "axios";
 export default {
+    props: ['dataParent'],
     name: "ViewStandard",
-
     data() {
         return {
-            standards: [],
+            passData: {},
+            structure: [],
         };
     },
-    created() {
-        this.getStandard()
-    },
-    methods: {
-        async getStandard() {
-            const token = localStorage.getItem("token");
-            const data = await axios.get("http://localhost:3000/teacher/get-standard",
-                {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            )
-            
-            const arr_data = data.data.standards;
-            const arr_result = arr_data.map((item, index) => {
-
-                return {
-                    id: item._id,
-                    stt: index + 1,
-                    codeStandard: item.codeStandard,
-                    categoryName: item.categoryName,
-                    contentStandard: item.contentStandard,
-                    status: item.status ? 'Hiện' : 'Ẩn',
-                    check: item.check
-                }
-            })
-
-            console.log(arr_result)
-
-            this.standards = arr_result;
-        },
-
-    }
-
-
-};
+}    
 </script>
 
 <style scoped>

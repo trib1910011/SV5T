@@ -17,7 +17,9 @@
                             item.name }}</p>
                         <p style="margin-left: 20px;"><span style="font-weight: bold;">Từ ngày:</span> {{ item.start }}</p>
                         <p style="margin-left: 20px;"><span style="font-weight: bold;">Đến ngày:</span> {{ item.end }}</p>
-                        <p style="margin-left: 20px;"><button type="button" class="btn btn-outline-primary p-2" data-bs-toggle="modal" data-bs-target="#ViewStandard"><i class="bi bi-eye-fill"></i> Tiêu chí đánh giá</button></p>
+                        <p style="margin-left: 20px;"><button type="button" class="btn btn-outline-primary p-2"
+                                data-bs-toggle="modal" data-bs-target="#ViewStandard" @click="viewDetail1(item.id)"><i
+                                    class="bi bi-eye-fill"></i> Tiêu chí đánh giá</button></p>
                     </div>
 
                 </div>
@@ -29,45 +31,47 @@
     <TitleStructure :title="`Danh sách sinh viên đăng ký`"></TitleStructure>
     <div class="mt-2 table-wrapper-scroll-y my-custom-scrollbar">
         <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="text-center" scope="col">#</th>
-                <th class="text-center" scope="col">Đợt</th>
-                <th class="text-center" scope="col">Mã đơn</th>
-                <th class="text-center" scope="col">
-                    Mã số sinh viên
-                </th>
-                <th class="text-center" scope="col">Họ tên sinh viên</th>
-                <th class="text-center" scope="col">
-                    Ngành
-                </th>
-                <th class="text-center" scope="col">
-                    Khóa
-                </th>
-                <th class="text-center" scope="col">Ngày đăng ký</th>
-                <th class="text-center" scope="col">Chi tiết đơn</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, index) in form" :key="index">
-                <th class="text-center" scope="row">
-                    {{ item.stt }}
-                </th>
-                <td class="text-center">{{ item.spellname }}</td>
-                <td class="text-center">{{ item.id }}</td>
-                <td class="text-center">{{ item.username }}</td>
-                <td class="text-center">{{ item.name }}</td>
-                <td class="text-center">{{ item.major }}</td>
-                <td class="text-center">{{ item.course }}</td>
-                <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new Date(item.created).getMinutes().toString().padStart(2, '0')} ${item.created.toString().slice(0, 10)}` }}</td>
-                <td class="text-center"><button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
-                                                data-bs-target="#ViewDetailModal" @click="viewDetail(item.id, st.id)"><i class="bi bi-eye-fill"></i> Xem chi tiết</button></td>
-            </tr>
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th class="text-center" scope="col">Đợt</th>
+                    <th class="text-center" scope="col">
+                        Mã số sinh viên
+                    </th>
+                    <th class="text-center" scope="col">Họ tên sinh viên</th>
+                    <th class="text-center" scope="col">
+                        Ngành
+                    </th>
+                    <th class="text-center" scope="col">
+                        Khóa
+                    </th>
+                    <th class="text-center" scope="col">Ngày đăng ký</th>
+                    <th class="text-center" scope="col">Chi tiết đơn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in form" :key="index">
+                    <th class="text-center" scope="row">
+                        {{ item.stt }}
+                    </th>
+                    <td class="text-center">{{ item.spellname }}</td>
+                    <td class="text-center">{{ item.username }}</td>
+                    <td class="text-center">{{ item.name }}</td>
+                    <td class="text-center">{{ item.major }}</td>
+                    <td class="text-center">{{ item.course }}</td>
+                    <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new
+                        Date(item.created).getMinutes().toString().padStart(2, '0')} ${item.created.toString().slice(0,
+                            10)}` }}</td>
+                    <td class="text-center"><button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
+                            data-bs-target="#ViewDetailModal" @click="viewDetail(item.id, st.id)"><i
+                                class="bi bi-eye-fill"></i> Xem chi tiết</button></td>
+                </tr>
+               
+            </tbody>
+        </table>
     </div>
     <ViewDetail v-bind:dataParent="passData"></ViewDetail>
-    <ViewStandard></ViewStandard>
+    <ViewStandard v-bind:dataParent="passData"></ViewStandard>
 </template>
 
 <script>
@@ -86,12 +90,13 @@ export default {
             spell: [],
             empty_check: "",
             form: [],
-            passData: {}
+            passData: {},
+            allocate: []
         };
     },
     created() {
         this.showSpell(),
-            this.showForm()
+        this.showForm()
     },
     computed: {
         ...mapGetters({ st: "getAccount" }),
@@ -111,12 +116,10 @@ export default {
                     name: item.name,
                     start: item.start,
                     end: item.end,
+                    allocate: item.allocate,
                     status: item.status ? 'Bắt đầu' : 'Kết thúc'
                 }
-
-
             })
-
             var count_empty = 0
             arr_result.forEach((item) => {
                 if (item.status === "Kết thúc") {
@@ -139,22 +142,56 @@ export default {
             })
 
             const data_form = data1.data.arr
-            const arr_form =data_form.map((item, index) => {
-                return {
-                    stt: index + 1,
-                    id: item._id,
-                    username: item.studentId.username,
-                    name: item.studentId.name,
-                    major: item.major,
-                    course: item.course,
-                    drl: item.drl,
-                    gpa: item.gpa,
-                    result: item.result,
-                    spellname: item.spellname,
-                    standard: item.standard,
-                    created: item.createdAt
+
+            const arr_spell_name = []
+
+            const arrAllocate = this.spell.map((item) => {
+                arr_spell_name.push(item.name)
+                return item.allocate
+            })
+
+
+
+            let checkSpellname = []
+            for (let i = 0; i < arrAllocate.length; i++) {
+                console.log(arrAllocate[i].includes(this.st.name))
+                if (arrAllocate[i].includes(this.st.name)) {
+                    checkSpellname.push(arr_spell_name[i])
+                }
+            }
+
+            let arr_form = []
+
+            var count = 1
+
+            data_form.forEach((item) => {
+       
+                if (checkSpellname.includes(item.spellname)) {
+                    if(item.result == 'Đang xử lý'){
+                        const ob = {
+                        stt: count++,
+                        id: item._id,
+                        username: item.studentId.username,
+                        name: item.studentId.name,
+                        major: item.major,
+                        course: item.course,
+                        drl: item.drl,
+                        gpa: item.gpa,
+                        result: item.result,
+                        spellname: item.spellname,
+                        standard: item.standard,
+                        created: item.createdAt
+                    }
+                    arr_form.push(ob)
+                    }
+                        
+                    
                 }
             })
+
+            if (arr_form.length == 0) {
+                arr_form = []
+            }
             this.form = arr_form;
         },
         async viewDetail(id_input, st_id) {
@@ -165,16 +202,33 @@ export default {
                     Authorization: "Bearer " + token,
                 }
             }).then((data) => {
+         
                 const ob = {
                     id_teacher : st_id,
                     data: data.data.findForm
                 }
+
+                console.log(ob)
+
                 localStorage.setItem('view_detail_form', JSON.stringify(ob))
                 this.passData = data.data.findForm
             }).catch((e) => {
                 console.log(e)
             })
-            
+
+        },
+        async viewDetail1(id_input) {
+            await axios.get(`http://localhost:3000/spell/get-spell-id/${id_input}`, {
+            }).then((data) => {
+                const ob = {
+                    data: data.data.findSpell
+                }
+                localStorage.setItem('view_detail_form', JSON.stringify(ob))
+                this.passData = data.data.findSpell
+            }).catch((e) => {
+                console.log(e)
+            })
+
         },
 
     }

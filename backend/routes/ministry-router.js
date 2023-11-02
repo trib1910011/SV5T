@@ -13,6 +13,9 @@ import updateCategory, {deleteCategory, createCategory, showCategory } from "../
 import updateStandard, { createStandard, deleteStandard, showStandard, updateOneStandard } from "../controllers/ministry-controllers/create-standard.js";
 import getCategories from "../controllers/ministry-controllers/get-category.js";
 import getStandards from "../controllers/global/get-standard.js";
+import getAllAccount from "../controllers/global/get-all-account.js";
+import { showForm } from "../controllers/student-controllers/get-forms.js";
+import {getForm} from "../controllers/global/get-form-id.js";
 
 const router = express.Router();
 
@@ -63,4 +66,9 @@ router.get("/get-infor-assign", getInforAssign);
 // Get student managed by teacher
 router.get("/get-student-managed", getStudentManaged);
 
+router.get("/get-all-account", getAllAccount);
+
+router.get("/get-form-id/:id", getForm);
+
+router.get("/get-form", showForm);
 export default router;

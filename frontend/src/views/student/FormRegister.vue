@@ -47,7 +47,8 @@
                                         <div class="col-12 d-flex justify-content-center mt-4">
 
                                             <button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
-                                                data-bs-target="#AssessResultModal" style="font-size: 15px">
+                                                data-bs-target="#AssessResultModal" style="font-size: 15px"
+                                                @click="registerForm(item.id)">
                                                 <i class="bi bi-vector-pen"></i> Đăng ký xét
                                             </button>
                                         </div>
@@ -61,7 +62,7 @@
             </div>
 
         </div>
-        <CreateForm></CreateForm>
+        <CreateForm v-bind:dataParent="passData"></CreateForm>
         <ViewDetail v-bind:dataParent="passData"></ViewDetail>
     </div>
     <TitleStructure :title="`Danh sách đơn đã đăng ký`" class="col"></TitleStructure>
@@ -84,20 +85,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr v-for="(item, index) in form" :key="index"> -->
-                <!-- <template v-if="item.username==username"> -->
-                <!-- <th class="text-center" scope="row">
-                        {{ item.stt }}
-                    </th>
-                    <td class="text-center">{{ item.id }}</td>
-                    <td class="text-center">{{ item.spellname }}</td>
-                    <td class="text-center">{{ item.created.toString().slice(0, 10) }}</td>
-                    <td class="text-center">{{ item.result }}</td>
-                    <td class="text-center"><button type="button" class="btn btn-outline-success p-2">Xem chi tiết</button>
-                    </td> -->
-                <!-- </template> -->
-
-                <!-- </tr> -->
                 <tr v-for="(item, index) in form" :key="index">
 
                     <th class="text-center" scope="row">
@@ -105,11 +92,14 @@
                     </th>
                     <td class="text-center">{{ item.id }}</td>
                     <td class="text-center">{{ item.spellname }}</td>
-                    <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new Date(item.created).getMinutes().toString().padStart(2, '0')} ${item.created.toString().slice(0, 10)}` }}</td>
+                    <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new
+                        Date(item.created).getMinutes().toString().padStart(2, '0')} ${item.created.toString().slice(0,
+                            10)}` }}</td>
                     <td class="text-center">{{ item.result }}</td>
                     <td class="text-center"><button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
-                            data-bs-target="#ViewDetailModal" @click="viewDetail(item.id,st.id)"><i class="bi bi-eye-fill"></i> Xem chi tiết</button></td>
-                   
+                            data-bs-target="#ViewDetailModal" @click="viewDetail(item.id)"><i class="bi bi-eye-fill"></i>
+                            Xem chi tiết</button></td>
+
                 </tr>
             </tbody>
         </table>
@@ -131,35 +121,19 @@ export default {
             spell: [],
             empty_check: "",
             form: [],
-            passData:{}
+            passData: {}
         };
     },
     created() {
         this.showSpell()
         this.showForm()
+        // this.sendResult()
     },
     computed: {
         ...mapGetters({ st: "getAccount" }),
     },
     methods: {
-        // async viewDetail(id_input) {
-        //     console.log(id_input)
-        //     const token = localStorage.getItem("token");
-
-        //     await axios.get(`http://localhost:3000/student/get-form-id/${id_input}`, {
-        //         headers: {
-        //             Authorization: "Bearer " + token,
-        //         }
-        //     }).then((data) => {
-        //         console.log(data)
-        //         this.passData = data.data.findForm
-        //         console.log(data.data.findForm)
-        //     }).catch((e) => {
-        //         console.log(e)
-        //     })
-
-        // },
-        async viewDetail(id_input, st_id) {
+        async viewDetail(id_input) {
             const token = localStorage.getItem("token");
 
             await axios.get(`http://localhost:3000/student/get-form-id/${id_input}`, {
@@ -168,7 +142,6 @@ export default {
                 }
             }).then((data) => {
                 const ob = {
-                    id_student : st_id,
                     data: data.data.findForm
                 }
                 localStorage.setItem('view_detail_form', JSON.stringify(ob))
@@ -224,6 +197,26 @@ export default {
             const arr_result = []
             data_form.forEach((item, index) => {
                 if (item.studentId.username == this.st.username) {
+                    //Xử lý trạng thái
+                    // const count_check = item.count_check
+                    // const arr_count_check = count_check.map((item1) => {
+                    //     if (item1.split("-")[1] == "Đạt") {
+                    //         return item1
+                    //     }
+                    // })
+
+                    // let status_check = ""
+                    // if (count_check.length != 3) {
+                    //     status_check = "Đang xử lý"
+                    // } else if (count_check.length == 3) {
+                    //     if (arr_count_check.length >= 2) {
+                    //         status_check = "Đạt"
+                    //     } else if (arr_count_check.length <= 1) {
+                    //         status_check = "Chưa đạt"
+                    //     }
+                    // }
+
+
                     let ob = {
                         stt: index + 1,
                         id: item._id,
@@ -238,12 +231,70 @@ export default {
                         standard: item.standard,
                         created: item.createdAt
                     }
+
                     arr_result.push(ob)
                 }
             })
 
-            this.form = arr_result;
-        }
+
+            this.form = arr_result
+
+        },
+        async registerForm(id_input) {
+            await axios.get(`http://localhost:3000/spell/get-spell-id/${id_input}`, {
+            }).then((data) => {
+                const ob = {
+                    data: data.data.findSpell
+                }
+                localStorage.setItem('view_detail_form', JSON.stringify(ob))
+                this.passData = data.data.findSpell
+            }).catch((e) => {
+                console.log(e)
+            })
+
+        },
+        // async sendResult() {
+        // const token = localStorage.getItem("token");
+        // const data1 = await axios.get("http://localhost:3000/student/get-form", {
+        //     headers: {
+        //         Authorization: "Bearer " + token,
+        //     }
+        // })
+
+        // const data_form = data1.data.arr
+        // console.log(data_form)
+        // const arr_result = []
+        // data_form.forEach((item) => {
+        //     if (item.studentId.username == this.st.username) {
+        //         if (item.count_check.length == 3) {
+        //             const check_pass = item.count_check;
+        //             const count_check = check_pass.map((item1)=>{
+        //                 if(item1.split("-")[1] == "Đạt"){
+        //                     return item1;
+        //                 }
+        //             })
+
+
+
+        //             if(count_check.length >= 2){
+        //                 arr_result.push(item)
+        //             }
+        //         }
+        //     }
+        // })
+
+        // console.log(arr_result)
+        // const arr_result_solver = arr_result.map((item)=>{
+        //     item.result = "Đạt"
+        //     return item
+        // })
+
+
+
+
+
+        // this.form = arr_result_solver;
+        // },
     }
 
 }    
