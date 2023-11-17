@@ -1,5 +1,4 @@
 import Account from "../../models/Account.js";
-import CompanyAccount from "../../models/CompanyAccount.js";
 import argon2 from "argon2";
 
 import { ObjectId } from "mongodb";
@@ -34,14 +33,6 @@ const updateProfile = async (req, res) => {
                 },
                 { new: true }
             );
-            // if rule is company
-            if (account.rule == "COMPANY") {
-                await CompanyAccount.findOneAndUpdate(
-                    { companyId: ObjectId(accountId) },
-                    { address: address, message: message },
-                    { new: true }
-                );
-            }
             res.redirect(
                 `http://localhost:8080/${account.rule.toLocaleLowerCase()}/update-infor/success`
             );
@@ -73,16 +64,6 @@ const updateProfile = async (req, res) => {
                     },
                     { new: true }
                 );
-
-                // if rule is company
-                if (account.rule == "COMPANY") {
-                    await CompanyAccount.findOneAndUpdate(
-                        { companyId: ObjectId(accountId) },
-                        { address: address, message: message },
-                        { new: true }
-                    );
-                }
-
                 res.redirect(
                     `http://localhost:8080/${account.rule.toLocaleLowerCase()}/update-infor/success`
                 );

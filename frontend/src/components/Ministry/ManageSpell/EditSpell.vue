@@ -115,11 +115,6 @@ export default {
                 const res = await axios.patch(
                     `${config.domain}/spell/update-spell`,
                     {
-                        // spellId: this.spellUpdate._id,
-                        // spellname: this.spellUpdate.spellname.trim(),
-                        // name: this.name.trim(),
-                        // start: this.start,
-                        // end: this.end,
                         spellId: this.spellUpdate.id,
                         spellname: this.spellUpdate.spellname.trim(),
                         name: this.spellUpdate.name.trim(), // Sử dụng this.spellUpdate.name thay vì this.name

@@ -20,6 +20,7 @@
                                 <strong>MSSV: </strong> {{ item.username }}<br>
                                 <strong>NGÀNH: </strong> {{ item.major }}<br>
                                 <strong>KHÓA: </strong> {{ item.course }}<br>
+                                <strong>LỚP: </strong> {{ item.classStudent }}<br>
                             </template>
                                 <div >
                                     <strong>ĐỢT: </strong> {{ dataParent.name }}
@@ -51,105 +52,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr>
-                                        <th scope="row">I</th>
-                                        <td style="font-weight: bold">Đạo đức tốt</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Đạo đức tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
-                                                    class="standard_check_box"
-                                                    v-bind:data-standard="(`DD${item.contentStandard}`)"></td>
-                                        </template>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">II</th>
-                                        <td style="font-weight: bold">
-                                            Học tập tốt
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Học tập tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
-                                                    class="standard_check_box"
-                                                    v-bind:data-standard="(`HT${item.contentStandard}`)"></td>
-                                        </template>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">III</th>
-                                        <td style="font-weight: bold">Thể lực tốt</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Thể lực tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
-                                                    class="standard_check_box"
-                                                    v-bind:data-standard="(`TL${item.contentStandard}`)"></td>
-                                        </template>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">IV</th>
-                                        <td style="font-weight: bold">Tình nguyện tốt</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 1 trong các tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Tình nguyện tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
-                                                    class="standard_check_box"
-                                                    v-bind:data-standard="(`TN${item.contentStandard}`)"></td>
-                                        </template>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">V</th>
-                                        <td style="font-weight: bold">Hội nhập tốt</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>Đạt 2 trong 3 tiêu chuẩn sau:</td>
-                                    </tr>
-                                    <tr v-for="(item, index) in standards" :key="index">
-                                        <template v-if="item.categoryName == 'Hội nhập tốt' && item.status == 'Hiện'">
-                                            <th scope="row"></th>
-                                            <td>{{ item.contentStandard }}</td>
-                                            <td><input type="checkbox" style="height: 20px;width: 20px;"
-                                                    class="standard_check_box"
-                                                    v-bind:data-standard="(`HN${item.contentStandard}`)"></td>
-                                        </template>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td style="font-weight: bold">Các hoạt động tiêu biểu khác:</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <textarea placeholder="Điền các hoạt động đã tham gia (ghi ngày cụ thể)..."
-                                                name="" id="" cols="10" rows="3" class="form-control"
-                                                v-model="more"></textarea>
-                                        </td>
-                                    </tr> -->
                                     <tr>
                                         <th scope="row">I</th>
                                         <td style="font-weight: bold">Đạo đức tốt</td>
@@ -332,6 +234,7 @@ export default {
 
             const ob = {
                 studentId: this.student[0].id,
+                classStudent: this.student[0].classStudent,
                 major: this.student[0].major,
                 course: this.student[0].course,
                 spellname: this.dataParent.name,
@@ -341,8 +244,6 @@ export default {
                 more: this.more,
                 count_check: this.count_check
             }
-           
-            console.log(ob)
             const token = localStorage.getItem("token");
 
             const res = await axios.post("http://localhost:3000/student/register-form",
@@ -432,7 +333,8 @@ export default {
                     username: item.username,
                     name: item.name,
                     major: item.major,
-                    course: item.course
+                    course: item.course,
+                    classStudent: item.classStudent
                 }
 
             })

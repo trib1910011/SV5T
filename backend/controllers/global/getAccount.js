@@ -31,6 +31,7 @@ const getAccount = async function (req, res, next) {
             phoneNumber,
             urlAvatar,
             rule,
+            classStudent: student?.classStudent || null,
             major: student?.major || null,
             course: student?.course || null
         };
@@ -46,27 +47,5 @@ const getAccount = async function (req, res, next) {
     }
 };
 
-// export async function getStudentAccount(req, res, next) {
-//     const {_id, username, email, phoneNumbername, urlAvatar,  rule} = req.user;
-//     const student = 
-//             await StudentAccount.findOne({studentId: _id});
-//         const account = {
-//             id: _id,
-//             username,
-//             name,
-//             email,
-//             phoneNumber,
-//             urlAvatar,
-//             rule,
-//             major: student.major || null,
-//             course: student.course || null
-//         };
-
-//         return res.json({
-//             status: true,
-//             message: "Get account successfully!",
-//             result: account,
-//         });
-// }
 
 export default getAccount;

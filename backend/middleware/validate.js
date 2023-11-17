@@ -59,18 +59,6 @@ const schema = {
         address: Joi.string(),
         message: Joi.string(),
     }),
-
-    assessCompanySchema: Joi.object().keys({
-        disPoints: Joi.string(),
-        techPoint: Joi.string(),
-        resultPoint: Joi.string(),
-        message: Joi.string(),
-    }),
-
-    assessTaskSchema: Joi.object().keys({
-        status: Joi.string(),
-        assess: Joi.string(),
-    }),
 };
 
 export { validateParam, validateBody, schema };

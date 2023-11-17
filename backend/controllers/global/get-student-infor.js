@@ -25,7 +25,6 @@ const {token} = req.body
     const studentAccount = await StudentAccount.findOne({
       studentId: id_input,
     });
-
     
     const result = {
       studentId: id_input,
@@ -34,6 +33,7 @@ const {token} = req.body
       email,
       phoneNumber,
       urlAvatar,
+      classStudent: studentAccount.classStudent,
       major: studentAccount.major,
       course: studentAccount.course,
     };

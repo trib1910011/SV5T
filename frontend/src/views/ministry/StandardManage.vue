@@ -2,12 +2,12 @@
     <div class="animate__animated animate__fadeIn">
         <TitleStructure :title="`Quản lý tiêu chí`"></TitleStructure>
         <div class="type-account col-12 d-flex justify-content-center">
-            <div class="type__item" @click="handleFilter($event)">Tất cả</div>
-            <div class="type__item" @click="handleFilter($event)">Đạo đức tốt</div>
-            <div class="type__item" @click="handleFilter($event)">Học tập tốt</div>
-            <div class="type__item" @click="handleFilter($event)">Thể lực tốt</div>
-            <div class="type__item" @click="handleFilter($event)">Tình nguyện tốt</div>
-            <div class="type__item" @click="handleFilter($event)">Hội nhập tốt</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Tất cả</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Đạo đức tốt</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Học tập tốt</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Thể lực tốt</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Tình nguyện tốt</div>
+            <div class="type__item" @click="handleFilter($event)" style="font-weight: bold;">Hội nhập tốt</div>
             <!-- <div v-for="(item) in categories" :key="item" class="type__item" @click="handleFilter($event)">
                 {{ item.categoryName }}
             </div> -->

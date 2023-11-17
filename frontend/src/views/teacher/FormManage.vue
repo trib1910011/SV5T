@@ -8,7 +8,7 @@
         <InforTeacher></InforTeacher>
         <div class="mx-5" style="width: 100%">
             <div v-if="empty_check !== ''">
-                <h5 style="color: red;width: 100%;text-align: center;">{{ this.empty_check }}</h5>
+                <h5 style="color: red;width: 100%;text-align: center;font-weight: bold;">{{ this.empty_check }}</h5>
             </div>
             <div v-else>
                 <div v-for="(item, index) in spell" :key="index">
@@ -40,6 +40,9 @@
                     </th>
                     <th class="text-center" scope="col">Họ tên sinh viên</th>
                     <th class="text-center" scope="col">
+                        Lớp
+                    </th>
+                    <th class="text-center" scope="col">
                         Ngành
                     </th>
                     <th class="text-center" scope="col">
@@ -57,6 +60,7 @@
                     <td class="text-center">{{ item.spellname }}</td>
                     <td class="text-center">{{ item.username }}</td>
                     <td class="text-center">{{ item.name }}</td>
+                    <td class="text-center">{{ item.classStudent }}</td>
                     <td class="text-center">{{ item.major }}</td>
                     <td class="text-center">{{ item.course }}</td>
                     <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new
@@ -173,6 +177,7 @@ export default {
                         id: item._id,
                         username: item.studentId.username,
                         name: item.studentId.name,
+                        classStudent: item.classStudent,
                         major: item.major,
                         course: item.course,
                         drl: item.drl,

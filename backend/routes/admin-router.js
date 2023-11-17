@@ -3,6 +3,7 @@ import createAccount from "../controllers/admin-controllers/create-account.js";
 import deleteAccount from "../controllers/admin-controllers/delete-account.js";
 import getAllAccount from "../controllers/admin-controllers/get-all-account.js";
 import updateAccount from "../controllers/admin-controllers/update-account.js";
+import importExcel from "../controllers/admin-controllers/import-excel.js";
 
 const router = express.Router();
 
@@ -21,5 +22,7 @@ router.delete("/delete-account", deleteAccount);
 
 //Update Account
 router.patch("/update-account", updateAccount);
+
+router.post("/import-excel", importExcel)
 
 export default router;

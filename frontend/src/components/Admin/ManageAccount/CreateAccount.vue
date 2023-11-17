@@ -43,7 +43,17 @@
                             <div class="mb-3 row px-0 justify-content-between student-info d-none">
                                 <div class="student-major col-8 p-0">
                                     <label for="inputMajor" class="col-form-label px-0"><strong>Ngành:</strong></label>
-                                    <input type="text" class="form-control" id="major" name="major" v-model="major" />
+                                    <select class="form-select select-major" aria-label="Select Major" id="inputMajor"
+                                        name="major" v-model="major">
+                                        <option selected value="Công nghệ thông tin">Công nghệ thông tin</option>
+                                        <option value="Truyền thông đa phương tiện">Truyền thông đa phương tiện</option>
+                                        <option value="An toàn thông tin">An toàn thông tin</option>
+                                        <option value="Khoa học máy tính">Khoa học máy tính</option>
+                                        <option value="Kỹ thuật máy tính">Kỹ thuật máy tính</option>
+                                        <option value="Mạng máy tính và truyền thông dữ liệu">Mạng máy tính và truyền thông dữ liệu</option>
+                                        <option value="Kỹ thuật phần mềm">Kỹ thuật phần mềm</option>
+                                        <option value="Hệ thống thông tin">Hệ thống thông tin</option>
+                                    </select>
                                 </div>
                                 <div class="course col-3 p-0">
                                     <label for="inputCourse" class="col-form-label px-0"><strong>Khóa:</strong></label>
@@ -56,6 +66,10 @@
                                         <option value="49">49</option>
                                     </select>
                                 </div>
+                                <div class="student-class col-6 p-0">
+                                    <label for="inputClass" class="col-form-label px-0"><strong>Lớp:</strong></label>
+                                    <input type="text" class="form-control" id="class" name="major" v-model="classStudent" />
+                            </div>
                             </div>
                         </div>
                     </form>
@@ -72,7 +86,7 @@
                     </div>
                     <div v-else>
                         <button type="button" class="btn btn-primary" @click="handleCreateAccount" data-bs-dismiss="modal"
-                        :disabled="!username || !password || !name || !typeAccount ||!major">
+                        :disabled="!username || !password || !name || !typeAccount ||!major ||!classStudent">
                         Xác nhận
                     </button>
                     </div>
@@ -94,7 +108,8 @@ export default {
             password: "",
             name: "",
             typeAccount: "TEACHER",
-            major: "",
+            major: "Công nghệ thông tin",
+            classStudent: "",
             course: "45",
         };
     },
@@ -119,6 +134,7 @@ export default {
                     password: this.password.trim(),
                     name: this.name.trim(),
                     typeAccount: this.typeAccount,
+                    classStudent: this.classStudent,
                     major: this.major.trim(),
                     course: this.course,
                 },
@@ -145,6 +161,7 @@ export default {
                 this.password = '';
                 this.name = '';
                 this.major = '';
+                this.classStudent= '';
             }
 
 

@@ -47,9 +47,10 @@ const createAccount = async (req, res, next) => {
                 });
             }
             if (typeAccount === "STUDENT") {
-                const { major, course } = req.body;
+                const { classStudent, major, course } = req.body;
                 const studentAccount = await StudentAccount.create({
                     studentId: newAccount._id,
+                    classStudent,
                     major,
                     course,
                 });

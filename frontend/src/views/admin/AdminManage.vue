@@ -3,18 +3,24 @@
         <div class="admin-manage animate__animated animate__fadeIn">
             <TitleStructure :title="`Danh sách tài khoản`"></TitleStructure>
             <div class="type-account col-12 d-flex justify-content-center">
-                <div class="type__item" id="all" @click="handleFilter">
+                <div class="type__item" id="all" @click="handleFilter" style="font-weight: bold;">
                     Tất cả tài khoản
                 </div>
-                <div class="type__item" id="teacher" @click="handleFilter">
+                <div class="type__item" id="teacher" @click="handleFilter" style="font-weight: bold;">
                     Tài khoản giảng viên
                 </div>
-                <div class="type__item" id="student" @click="handleFilter">
+                <div class="type__item" id="student" @click="handleFilter" style="font-weight: bold;">
                     Tài khoản sinh viên
                 </div>
-                <div class="type__item" id="ministry" @click="handleFilter">
+                <div class="type__item" id="ministry" @click="handleFilter" style="font-weight: bold;">
                     Tài khoản giám sát
                 </div>
+            </div>
+            <div style="float: right;">
+                <button type="button" 
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#importAccount">IMPORT FILE EXCEL</button>
             </div>
             <div
                 class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar"
@@ -85,6 +91,7 @@
         <EditInforAccount></EditInforAccount>
 
         <CreateAccount></CreateAccount>
+        <ImportAccount></ImportAccount>
     </div>
 </template>
 
@@ -95,10 +102,10 @@ import TitleStructure from "../../components/GlobalComponent/TitleStructure.vue"
 import CreateAccount from "../../components/Admin/ManageAccount/CreateAccount.vue";
 import { mapGetters } from "vuex";
 import EditInforAccount from "@/components/Admin/ManageAccount/EditInforAccount.vue";
-
+import ImportAccount from "../../components/Admin/ManageAccount/ImportAccount.vue"
 export default {
     name: "AdminManage",
-    components: { TitleStructure, CreateAccount, EditInforAccount },
+    components: { TitleStructure, CreateAccount, EditInforAccount, ImportAccount },
 
     data() {
         return {

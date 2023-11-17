@@ -13,6 +13,9 @@
                 <div class="col-12 my-1">
                     <strong>Ngành: </strong> {{ item.major }}
                 </div>
+                <div class="col-7 my-1">
+                    <strong>Lớp: </strong> {{ item.classStudent }}
+                </div>
                 <div class="col-5 my-1">
                     <strong>Khóa: </strong> {{ item.course }}
                 </div>
@@ -59,6 +62,7 @@ export default {
                     stt: index + 1,
                     username: item.username,
                     name: item.name,
+                    classStudent: item.classStudent,
                     major: item.major,
                     course: item.course
                 }

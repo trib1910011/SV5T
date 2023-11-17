@@ -6,6 +6,9 @@ const studentAccountSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Account",
     },
+    classStudent: {
+        type: String,
+    },
     major: {
         type: String,
     },

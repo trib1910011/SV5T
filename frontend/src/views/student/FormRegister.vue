@@ -9,7 +9,7 @@
         <InforStudent></InforStudent>
         <div class="mx-5" style="width: 100%">
             <div v-if="empty_check !== ''">
-                <h5 style="color: red;width: 100%;text-align: center;">{{ this.empty_check }}</h5>
+                <h5 style="color: red;width: 100%;text-align: center;font-weight: bold;">{{ this.empty_check }}</h5>
             </div>
             <div v-else>
                 <div v-for="(item, index) in spell" :key="index">
@@ -95,7 +95,7 @@
                     <td class="text-center">{{ `${new Date(item.created).getHours().toString().padStart(2, '0')}:${new
                         Date(item.created).getMinutes().toString().padStart(2, '0')} ${item.created.toString().slice(0,
                             10)}` }}</td>
-                    <td class="text-center">{{ item.result }}</td>
+                    <td class="text-center" style="color: red;font-weight: bold;">{{ item.result }}</td>
                     <td class="text-center"><button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
                             data-bs-target="#ViewDetailModal" @click="viewDetail(item.id)"><i class="bi bi-eye-fill"></i>
                             Xem chi tiết</button></td>

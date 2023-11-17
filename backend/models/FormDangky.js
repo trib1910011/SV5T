@@ -12,6 +12,9 @@ const formDangkySchema = new Schema({
     name: {
         type: String
     },
+    classStudent: {
+        type: String
+    },
     major: {
         type: String
     },

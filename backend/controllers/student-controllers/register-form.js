@@ -1,7 +1,7 @@
 import FormDangky from "../../models/FormDangky.js";
 import { ObjectId } from "mongodb";
 const registerForm = async function (req, res, next) {
-    const { studentId, username, name, major, course, spellname, gpa, drl, more, result, standard, count_check} =
+    const { studentId, username, name, classStudent, major, course, spellname, gpa, drl, more, result, standard, count_check} =
         req.body;
     const createdAt = new Date()
     try {
@@ -9,6 +9,7 @@ const registerForm = async function (req, res, next) {
             studentId: ObjectId(studentId),
             username,
             name,
+            classStudent,
             major,
             course,
             spellname,
