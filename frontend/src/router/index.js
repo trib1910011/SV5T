@@ -19,6 +19,7 @@ import StandardManage from "../views/ministry/StandardManage.vue";
 import DashBoardComponent from "../views/admin/AdminDashboard.vue";
 import FormManageMini from "../views/ministry/FormManage.vue";
 import CommendStudent from "../views/student/Commend.vue";
+import CommendTeacher from "../views/teacher/Commend.vue"
 
 const routes = [
     { path: "/", component: Home },
@@ -83,6 +84,7 @@ const routes = [
                 path: "/teacher/update-infor/:status",
                 component: UpdateInfor,
             },
+            { path: "/teacher/commend", component: CommendTeacher},
         ]
     }
 ]

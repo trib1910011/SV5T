@@ -21,7 +21,8 @@ const importExcel = async (req, res) => {
         });
         
         if (arr_id) res.send(arr_id);
-      } else {
+      } 
+      else {
         res.send("Fail");
       }
     });

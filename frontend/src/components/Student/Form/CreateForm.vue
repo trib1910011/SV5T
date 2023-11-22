@@ -30,16 +30,6 @@
 
 
                         </div>
-                        <div class="col-6 mt-3">
-                            <div>
-                                <strong>GPA: </strong>
-                                <input class="gpa" type="text" style="width: 50px;" v-model="gpa">
-                            </div>
-                            <div>
-                                <strong>ĐIỂM RÈN LUYỆN: </strong>
-                                <input class="drl" type="text" style="width: 50px;" v-model="drl">
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="table-assess d-flex">
@@ -187,34 +177,10 @@ export default {
         };
     },
     created() {
-        // this.showSpell()
-        // this.getStandard()
         this.showInforStudent()
     },
     methods: {
-        // async showSpell() {
-        //     const data = await axios.get("http://localhost:3000/spell/get-all-spell")
-
-
-        //     const arr_data = data.data.findSpell;
-
-        //     const arr_result = arr_data.map((item, index) => {
-        //         return {
-        //             id: item._id,
-        //             stt: index + 1,
-        //             spellname: item.spellname,
-        //             name: item.name,
-        //             start: item.start,
-        //             end: item.end,
-        //             status: item.status ? 'Bắt đầu' : 'Kết thúc'
-        //         }
-
-
-        //     })
-
-        //     this.spell = arr_result;
-
-        // },
+        
         async handleAssess() {
             var arr_standard = []
             let DOM_Checkbox_standart = document.querySelectorAll(".standard_check_box");
@@ -225,12 +191,7 @@ export default {
                 }
             })
 
-            // let spell_name_choose = ""
-            // this.spell.forEach((item) => {
-            //     if (item.status === "Bắt đầu") {
-            //         spell_name_choose = item.name
-            //     }
-            // })
+            
 
             const ob = {
                 studentId: this.student[0].id,
@@ -238,8 +199,8 @@ export default {
                 major: this.student[0].major,
                 course: this.student[0].course,
                 spellname: this.dataParent.name,
-                gpa: this.gpa,
-                drl: this.drl,
+                name: this.student[0].name,
+                username: this.student[0].username,
                 standard: arr_standard,
                 more: this.more,
                 count_check: this.count_check
@@ -258,18 +219,12 @@ export default {
                 isSuccess: res.data.status,
             })
             this.$parent.showForm()
-            // .then((data) => {
-            //     console.log(data)
-            // }).catch((e) => {
-            //     console.log(e)
-            // })
+            
 
             //Sau khi thoát khỏi form
             DOM_Checkbox_standart.forEach((item) => {
                 item.checked = false
             })
-            this.gpa = "";
-            this.drl = "";
             this.more = "";
         },
 
@@ -278,8 +233,6 @@ export default {
             DOM_Checkbox_standart.forEach((item) => {
                 item.checked = false
             })
-            this.gpa = "";
-            this.drl = "";
             this.more = "";
         },
         async getStandard() {

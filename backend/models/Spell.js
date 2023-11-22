@@ -16,6 +16,9 @@ const spellSchema = new Schema({
     end: {
         type: String
     },
+    ratio: {
+        type: Number
+    },
     allocate: {
         type: Array,
         of  : String,

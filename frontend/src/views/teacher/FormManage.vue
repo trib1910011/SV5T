@@ -29,7 +29,7 @@
     </div>
 
     <TitleStructure :title="`Danh sách sinh viên đăng ký`"></TitleStructure>
-    <div class="mt-2 table-wrapper-scroll-y my-custom-scrollbar">
+    <div class="mt-2 table-wrapper-scroll-y my-custom-scrollbar fixTableHead">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -250,5 +250,16 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 }
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}    
 </style>
                         

@@ -23,7 +23,7 @@
                 data-bs-target="#importAccount">IMPORT FILE EXCEL</button>
             </div>
             <div
-                class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar"
+                class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead"
             >
                 <table class="table table-striped">
                     <thead>
@@ -221,4 +221,14 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 }
+.fixTableHead {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}    
 </style>

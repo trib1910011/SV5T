@@ -37,7 +37,7 @@ import axios from "axios";
 import TitleStructure from "@/components/GlobalComponent/TitleStructure.vue";
 import ViewCommend from "@/components/Student/Form/ViewCommend.vue";
 export default {
-    name: "CommendStudent",
+    name: "CommendTeacher",
     data() {
         return {
             form: [],
@@ -74,7 +74,7 @@ export default {
         },
         async showForm() {
             const token = localStorage.getItem("token");
-            const data1 = await axios.get("http://localhost:3000/student/get-form", {
+            const data1 = await axios.get("http://localhost:3000/teacher/get-form", {
                 headers: {
                     Authorization: "Bearer " + token,
                 }
@@ -144,7 +144,7 @@ export default {
         async viewDetail(id_input) {
             const token = localStorage.getItem("token");
 
-            await axios.get(`http://localhost:3000/student/get-form-id/${id_input}`, {
+            await axios.get(`http://localhost:3000/teacher/get-form-id/${id_input}`, {
                 headers: {
                     Authorization: "Bearer " + token,
                 }

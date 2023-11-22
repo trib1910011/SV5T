@@ -2,7 +2,7 @@ import Spell from "../../models/Spell.js";
 
 
 export const createSpell = async (req, res, next) => {
-    const { spellname, name, start, end, status, allocate, structure } = req.body;
+    const { spellname, name, start, end, status, allocate, structure,ratio } = req.body;
     if (!spellname || !name || !start || !end ) {
         return res.json({
             status: false,
@@ -19,6 +19,7 @@ export const createSpell = async (req, res, next) => {
                 end,
                 status,
                 allocate,
+                ratio,
                 structure,
                 createdAt: Date.now(),
             });

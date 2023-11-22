@@ -1,33 +1,30 @@
 <template>
     <div class="assess-result">
-        <!-- Button trigger modal -->
-
-        <!-- Modal -->
-        <div class="modal fade" id="ViewDetailModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ViewCommendModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="min-width: 800px !important;">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="ModalLabel" style="text-align: center;width: 100%;">
-                            ĐƠN ĐĂNG KÝ XÉT SINH VIÊN 5 TỐT
-                        </h5>
+                    <div class="modal-header" style="background-color: rgb(204, 246, 242);">
+                        
+                        <h2 class="modal-title fw-bold" id="ModalLabel" style="text-align: center;width: 100%;color:#00b6db">
+                            
+                            <img src="/ctu.png" alt="" srcset="" style="height: 80px;width: 80px;">THÀNH TÍCH ĐẠT ĐƯỢC
+                        </h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             @click="cancelForm"></button>
                     </div>
+
                     <div class="modal-body">
                         <div class="table-assess d-flex">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th scope="col" class="col-1">STT</th>
-                                        <th scope="col" class="col-10">Tiêu chí đã đạt được</th>
-                                    </tr>
+                                    
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">I</th>
-                                        <td style="font-weight: bold">Đạo đức tốt</td>
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/daoductot.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">Đạo đức tốt</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
 
                                         <th scope="row"></th>
                                         <template v-for="fruit in dataParent.standard" :key="fruit.id">
@@ -38,13 +35,13 @@
 
                                         </template>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">II</th>
-                                        <td style="font-weight: bold">
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/hoctaptot.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">
                                             Học tập tốt
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
 
                                         <th scope="row"></th>
                                         <template v-for="fruit in dataParent.standard" :key="fruit.id">
@@ -55,11 +52,11 @@
 
                                         </template>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">III</th>
-                                        <td style="font-weight: bold">Thể lực tốt</td>
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/theluctot.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">Thể lực tốt</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
 
                                         <th scope="row"></th>
                                         <template v-for="fruit in dataParent.standard" :key="fruit.id">
@@ -70,11 +67,11 @@
 
                                         </template>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">IV</th>
-                                        <td style="font-weight: bold">Tình nguyện tốt</td>
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/tinhnguyentot.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">Tình nguyện tốt</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
 
                                         <th scope="row"></th>
                                         <template v-for="fruit in dataParent.standard" :key="fruit.id">
@@ -85,11 +82,11 @@
 
                                         </template>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">V</th>
-                                        <td style="font-weight: bold">Hội nhập tốt</td>
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/hoinhaptot.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">Hội nhập tốt</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
 
                                         <th scope="row"></th>
                                         <template v-for="fruit in dataParent.standard" :key="fruit.id">
@@ -100,11 +97,11 @@
 
                                         </template>
                                     </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td style="font-weight: bold">Các hoạt động tiêu biểu khác:</td><br>
+                                    <tr style="background-color: white;border: solid white;">
+                                        <th scope="row"><img src="/hoatdong.png" alt="" srcset="" style="width: 50px;height: 50px;"></th>
+                                        <td style="font-weight: bold;font-size: 25px;color:#00b6db;padding-top: 15px;">Các hoạt động tiêu biểu khác</td><br>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: solid rgb(204, 246, 242);background-color: rgb(204, 246, 242);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
                                         <th scope="row"></th>
                                         <td>
                                             <pre>{{ dataParent.more }}</pre>
@@ -117,23 +114,6 @@
                             </table>
                         </div>
                     </div>
-                    <div v-if="st.rule == 'TEACHER' && this.checkShowDOM == true" class="modal-footer"
-                        style="justify-content: center;width: 100%;">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                            @click="UpdateForm(dataParent._id, st.id, 'Đạt')">
-                            Đạt
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                            @click="UpdateForm(dataParent._id, st.id, 'Chưa đạt')">
-                            Chưa đạt
-                        </button>
-
-
-                    </div>
-                    <div v-else-if="st.rule == 'TEACHER' && this.checkShowDOM == false" class="modal-footer"
-                        style="justify-content: center;width: 100%;">
-                        <td style="font-weight: bold;">Đã duyệt</td>
-                    </div>
                 </div>
             </div>
         </div>
@@ -142,20 +122,17 @@
 
 <script>
 // import config from "@/config";
-import axios from "axios";
-import { mapGetters } from "vuex";
+// import axios from "axios";
+// import { mapGetters } from "vuex";
 export default {
     props: ['dataParent'],
-    // setup(props) {
-    //     // setup() receives props as the first argument.
-    //     console.log(props.dataParent)
-    // },
-    name: "ViewDetail",
+    name: "ViewCommend",
     data() {
         return {
             passData: {},
             standard: [],
             checkShowDOM: true,
+            form: []
         };
     },
     created() {
@@ -163,37 +140,15 @@ export default {
 
             this.viewDetail()
         }, 5000)
+        
     },
     mounted() {
-        setInterval(()=>{
+        setInterval(() => {
             this.viewDetail()
 
-        },100)
+        }, 100)
     },
     methods: {
-        // viewData: (dataParent) => {
-        //     setTimeout(() => {
-
-        //         console.log(dataParent)
-        //     }, 5000)
-        // },
-        async UpdateForm(id_input, id_teacher, check) {
-            const token = localStorage.getItem("token");
-            const res = await axios.patch(`http://localhost:3000/teacher/update-form/${id_input}`,
-                {
-                    check: `${id_teacher}-${check}`
-                },
-                {
-                    headers: { Authorization: "Bearer " + token },
-                },
-
-            )
-
-            this.$store.commit("SET_TOAST", {
-                message: res.data.message,
-                isSuccess: res.data.status,
-            })
-        },
         viewDetail() {
             try {
                 let data = JSON.parse(localStorage.getItem('view_detail_form'))
@@ -219,15 +174,6 @@ export default {
 
         },
     },
-
-    computed: {
-        ...mapGetters({ st: "getAccount" }),
-
-    },
-
-
-
-
 
 
 };

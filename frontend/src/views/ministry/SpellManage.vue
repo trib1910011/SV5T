@@ -2,7 +2,7 @@
     <div>
         <div class="admin-manage animate__animated animate__fadeIn">
             <TitleStructure :title="`Danh sách đợt đăng ký sinh viên 5 tốt`"></TitleStructure>
-            <div class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar">
+            <div class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -14,6 +14,9 @@
                             <th class="text-center" scope="col">Ngày bắt đầu </th>
                             <th class="text-center" scope="col">
                                 Ngày kết thúc
+                            </th>
+                            <th class="text-center" scope="col">
+                                Tỉ lệ đạt
                             </th>
                             <th class="text-center" scope="col">
                                 Phân công xét duyệt
@@ -41,7 +44,7 @@
                             <td class="text-center">{{ item.name }}</td>
                             <td class="text-center">{{ item.start }}</td>
                             <td class="text-center">{{ item.end }}</td>
-
+                            <td class="text-center">{{ item.ratio }} %</td>
                             <td class="text-center">
                                 <template v-for="allocateItem in item.allocate" :key="allocateItem.id">
                                     <template v-if="allocateItem.length > 0">
@@ -124,6 +127,7 @@ export default {
                     name: item.name,
                     start: item.start,
                     end: item.end,
+                    ratio: item.ratio,
                     status: item.status ? 'Bắt đầu' : 'Kết thúc',
                     allocate: item.allocate,
                     structure: item.structure
@@ -217,5 +221,16 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 }
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}    
 </style>
                         

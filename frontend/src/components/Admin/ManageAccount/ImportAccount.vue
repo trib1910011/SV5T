@@ -17,7 +17,7 @@
                                 <input type="file" class="form-control" ref="file" @change="onSelect" />
                             </div>
                             <div class="mb-3 d-flex justify-content-center">
-                                <button type="button" class="btn btn-success" @click='ImportAccount'>Upload</button>
+                                <button type="button" class="btn btn-success" @click="ImportAccount" data-bs-dismiss="modal">Upload</button>
                             </div>
 
 
@@ -51,7 +51,7 @@ export default {
             formData.append('file', this.file)
             const token = localStorage.getItem("token");
 
-            await axios.post(
+        const res = await axios.post(
                 `${config.domain}/admin/import-excel`,
                 {
                     formData
@@ -64,10 +64,12 @@ export default {
             ).then((data) => {
                 console.log(data)
             }).catch((e) => {
-                console.log(e)
-            })
-
-
+                 console.log(e)
+             })
+            this.$store.commit("SET_TOAST", {
+                message: res.data.message,
+                isSuccess: res.data.status,
+            });
 
         }
     }

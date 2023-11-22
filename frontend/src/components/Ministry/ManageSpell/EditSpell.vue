@@ -78,6 +78,20 @@
                                     v-model="spellUpdate.end"
                                 />
                             </div>
+                            <div class="mb-3 row">
+                                <label
+                                    for="inputRatio"
+                                    class="col-form-label px-0"
+                                    ><strong>Tỉ lệ đạt</strong></label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="inputRatio"
+                                    name="ratio"
+                                    v-model="spellUpdate.ratio"
+                                />
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -120,6 +134,7 @@ export default {
                         name: this.spellUpdate.name.trim(), // Sử dụng this.spellUpdate.name thay vì this.name
                         start: this.spellUpdate.start,
                         end: this.spellUpdate.end,
+                        ratio: this.spellUpdate.ratio
                     },
                    
                     

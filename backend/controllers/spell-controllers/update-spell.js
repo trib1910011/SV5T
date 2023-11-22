@@ -1,7 +1,7 @@
 import Spell from "../../models/Spell.js";
 
 const updateSpell = async (req, res, next) => {
-    const { spellId, spellname, name, start, end } = req.body;
+    const { spellId, spellname, name, start, end,ratio } = req.body;
     // simple validate
     if (!spellname || !name || !start || !end) {
         return res.json({
@@ -17,7 +17,9 @@ const updateSpell = async (req, res, next) => {
             spellname,
             name,
             start,
-            end}
+            end,
+            ratio
+        }
         ,{new:true})
         if (result) {
             return res.json({

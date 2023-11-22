@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="admin-manage animate__animated animate__fadeIn">
-            <TitleStructure :title="`Danh sách đơn sinh viên 5 tốt`"><img
-                    src="https://cdn-icons-png.flaticon.com/512/4426/4426381.png" alt="Lọc sinh viên" data-bs-toggle="modal"
-                    data-bs-target="#FilterForm" class="filter-icon" style="width: 30px;height: 30px;" /></TitleStructure>
+            <TitleStructure :title="`Danh sách đơn sinh viên 5 tốt`"></TitleStructure>
             <div class="type-form col-12 d-flex justify-content-center">
                 <div class="type__item" id="Tất cả đơn" @click="handleFilter" style="font-weight: bold;">
                     Tất cả đơn
@@ -23,6 +21,9 @@
                     <span class="input-group-text"><strong>Họ tên</strong></span>
                     <input type="text" class="form-control" placeholder="Nhập tên/mã sinh viên" aria-label="Username"
                         aria-describedby="basic-addon1">
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                    </button>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id=""><strong>Đợt</strong></span>
@@ -67,14 +68,14 @@
                             item.classStudent }}</option>
                     </select>
                 </div>
-                <div class="input-group mb-3">
+                <!-- <div class="input-group mb-3">
                     <span class="input-group-text" id=""><strong>Từ ngày</strong></span>
                     <input type="date" class="form-control" id="inputDatestart" name="start" />
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id=""><strong>Đến ngày</strong></span>
                     <input type="date" class="form-control" id="inputDatestart" name="start" />
-                </div>
+                </div> -->
                 <div style="margin-left: 150px;">
                     <button type="button" class="btn btn-secondary mx-3" data-bs-dismiss="modal" @click="resetAll()">
                         <i class="bi bi-arrow-counterclockwise"></i>Đặt lại
@@ -85,8 +86,10 @@
                 </div>
 
             </div>
-
-            <div class="list-form mt-5 table-wrapper-scroll-y my-custom-scrollbar">
+            <div style="float: right;">
+                <button type="button" class="btn btn-primary">EXPORT FILE EXCEL</button>
+            </div>
+            <div class="list-form mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -137,7 +140,6 @@
         </div>
     </div>
     <ViewDetail v-bind:dataParent="passData"></ViewDetail>
-    <FilterForm></FilterForm>
 </template>
 
 <script>
@@ -145,11 +147,11 @@ import axios from "axios";
 import TitleStructure from "../../components/GlobalComponent/TitleStructure.vue";
 import ViewDetail from "@/components/Student/Form/ViewDetail.vue";
 import { mapGetters } from "vuex";
-import FilterForm from "../../components/Ministry/ManageForm/FilterForm.vue"
+
 
 export default {
     name: "FormManageMini",
-    components: { TitleStructure, ViewDetail, FilterForm },
+    components: { TitleStructure, ViewDetail },
     created() {
         this.showForm()
         this.showSpell()
@@ -347,17 +349,20 @@ export default {
         },
         async resetAll() {
             document.querySelector("#spell").value = 'Tất cả'
+            document.querySelector("#course").value = 'Tất cả'
+            document.querySelector("#major").value = 'Tất cả'
+            document.querySelector("#classStudent").value = 'Tất cả'
         },
         async searchInfo() {
             const token = localStorage.getItem("token");
-            const data1 = await axios.get("http://localhost:3000/ministry/get-form", {
-                headers: {
-                    Authorization: "Bearer " + token,
-                }
-            })
+            // const data1 = await axios.get("http://localhost:3000/ministry/get-form", {
+            //     headers: {
+            //         Authorization: "Bearer " + token,
+            //     }
+            // })
 
-            const data_form = data1.data.arr
-            const arr_result = []
+            // var data_form = data1.data.arr
+            var arr_result = []
 
             //Khu vực lọc dữ liệu
             let spell_filter = document.querySelector("#spell").value
@@ -378,33 +383,29 @@ export default {
                         Authorization: "Bearer " + token,
                     }
                 }).then((data) => {
-                    console.log(data)
+                    data.data.forEach((item, index) => {
+                        let ob = {
+                            stt: index + 1,
+                            id: item._id,
+                            username: item.username,
+                            name: item.name,
+                            classStudent: item.classStudent,
+                            major: item.major,
+                            course: item.course,
+                            drl: item.drl,
+                            gpa: item.gpa,
+                            result: item.result,
+                            spellname: item.spellname,
+                            standard: item.standard,
+                            created: item.createdAt
+                        }
+                        arr_result.push(ob)
+                    })
+                    this.form = arr_result;
                 }).catch((e) => {
                     console.log(e)
                 })
 
-            data_form.forEach((item, index) => {
-                    let ob = {
-                        stt: index + 1,
-                        id: item._id,
-                        username: item.studentId?.username,
-                        name: item.studentId?.name,
-                        classStudent: item.classStudent,
-                        major: item.major,
-                        course: item.course,
-                        drl: item.drl,
-                        gpa: item.gpa,
-                        result: item.result,
-                        spellname: item.spellname,
-                        standard: item.standard,
-                        created: item.createdAt
-                    }
-                    arr_result.push(ob)
-                
-                
-            })
-
-            this.form = arr_result;
         }
     }
 };
@@ -432,4 +433,15 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 }
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}    
 </style>

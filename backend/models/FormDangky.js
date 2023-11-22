@@ -24,14 +24,6 @@ const formDangkySchema = new Schema({
     spellname: {
         type: String,
     },
-    gpa: {
-        type: Number,
-        required: true,
-    },
-    drl: {
-        type: Number,
-        required: true,
-    },
     standard: {
         type: Array,
         of: String,

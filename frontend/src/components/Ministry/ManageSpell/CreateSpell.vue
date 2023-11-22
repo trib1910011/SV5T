@@ -31,6 +31,19 @@
                                         thúc:</strong></label>
                                 <input type="date" class="form-control" id="inputDateend" name="end" v-model="end" />
                             </div>
+                            <div class="mb-3 row col-3">
+                                <label for="inputRatio" class="col-form-label px-0"><strong>Tỉ lệ đạt: </strong><span>(Đơn vị tính: %)</span></label>
+                                    <select id="inputRatio" name="ratio" class="form-select"
+                                    v-model="ratio" @change="selectRatio($event)">
+                                    <option value="50" selected>50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>  
+                                    <option value="100">100</option>                       
+                                </select>
+                            </div>
+                            
                             <div class="mb-3 row">
                                 <label for="inputAllocate" class="col-form-label px-0"><strong>Phân công xét duyệt:
                                     </strong></label>
@@ -66,7 +79,7 @@
                                 <div style="border: 1px solid rgb(191, 188, 188);padding: 2px; border-radius: 5px;"
                                     class="col-6">
                                     <div v-for="(item, index) in arrTeacherChoose" :key="index">
-                                        <p>{{ index + 1 }}.{{ item }}</p>
+                                        {{ index + 1 }}.{{ item }} <br>
                                     </div>
 
                                 </div>
@@ -198,16 +211,16 @@ export default {
             name: "",
             start: "",
             end: "",
+            ratio: "50",
             status: true,
             account: [],
             standards: [],
-
             arrTeacherChoose: []
         };
     },
     created() {
         this.getAllAccount(),
-            this.getStandard()
+        this.getStandard()
     },
     methods: {
         findInfo() {
@@ -233,14 +246,12 @@ export default {
 
         addTeacher() {
             let DOM_Checkbox_teacher = document.querySelectorAll(".allocate");
-
-            if (this.arrTeacherChoose.length !== 3) {
                 DOM_Checkbox_teacher.forEach((item) => {
                     if (item.checked && !this.arrTeacherChoose.includes(item.dataset.allocate)) {
                         this.arrTeacherChoose.push(item.dataset.allocate)
                     }
                 })
-            }
+            
 
             DOM_Checkbox_teacher.forEach((item) => {
                     item.checked = false
@@ -273,6 +284,7 @@ export default {
                     start: this.start,
                     end: this.end,
                     status: this.status,
+                    ratio: this.ratio,
                     allocate: this.arrTeacherChoose,
                     structure: arr_structure
                 },
@@ -290,6 +302,7 @@ export default {
                     name: this.name,
                     start: this.start,
                     end: this.end,
+                    ratio: this.ratio,
                     status: this.status,
                     allocate: this.arrTeacherChoose,
                     structure: arr_structure
@@ -300,9 +313,6 @@ export default {
                 this.start = '';
                 this.end = '';
                 this.arrTeacherChoose = [];
-                // DOM_Checkbox_teacher.forEach((item) => {
-                //     item.checked = false
-                // })
                 DOM_Checkbox_structure.forEach((item) => {
                     item.checked = false
                 })
@@ -361,6 +371,10 @@ export default {
             })
             this.standards = arr_result;
         },
+        selectRatio(event) {
+            this.selected = event.target.value
+            console.log(event.target.value)
+        }
     },
 };
 </script>
