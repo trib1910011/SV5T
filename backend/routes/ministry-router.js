@@ -9,6 +9,7 @@ import { showForm } from "../controllers/student-controllers/get-forms.js";
 import {getForm} from "../controllers/global/get-form-id.js";
 import getClass from "../controllers/global/get-class.js";
 import { findForm } from "../controllers/global/findForm.js";
+import searchbyMinistry from "../controllers/global/searchbyMinistry.js";
 
 const router = express.Router();
 
@@ -47,6 +48,8 @@ router.get("/get-form", showForm);
 
 router.get("/get-class", getClass)
 
-router.post("/search-form",findForm )
+router.post("/find-form",findForm )
+
+router.post("/search-form",searchbyMinistry)
 
 export default router;

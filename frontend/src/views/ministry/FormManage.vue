@@ -19,9 +19,9 @@
             <div class="col-5" style="margin-left: 370px;">
                 <div class="input-group mb-3 mt-3">
                     <span class="input-group-text"><strong>Họ tên</strong></span>
-                    <input type="text" class="form-control" placeholder="Nhập tên/mã sinh viên" aria-label="Username"
-                        aria-describedby="basic-addon1">
-                    <button type="button" class="btn btn-primary">
+                    <input type="text" class="form-control search-form" placeholder="Nhập tên/mã sinh viên"
+                        aria-label="Username" aria-describedby="basic-addon1">
+                    <button type="button" class="btn btn-primary" @click="SearchForm()">
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
@@ -68,14 +68,6 @@
                             item.classStudent }}</option>
                     </select>
                 </div>
-                <!-- <div class="input-group mb-3">
-                    <span class="input-group-text" id=""><strong>Từ ngày</strong></span>
-                    <input type="date" class="form-control" id="inputDatestart" name="start" />
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id=""><strong>Đến ngày</strong></span>
-                    <input type="date" class="form-control" id="inputDatestart" name="start" />
-                </div> -->
                 <div style="margin-left: 150px;">
                     <button type="button" class="btn btn-secondary mx-3" data-bs-dismiss="modal" @click="resetAll()">
                         <i class="bi bi-arrow-counterclockwise"></i>Đặt lại
@@ -87,7 +79,9 @@
 
             </div>
             <div style="float: right;">
-                <button type="button" class="btn btn-primary">EXPORT FILE EXCEL</button>
+                <button type="button" class="btn btn-primary"><export-excel :data="form">
+                    XUẤT FILE
+                </export-excel></button>
             </div>
             <div class="list-form mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead">
                 <table class="table table-striped">
@@ -136,6 +130,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <template v-if="form.length == 0">
+                    <strong style="margin-left: 450px;font-size: 20px;color: red;">Không tìm thấy danh sách sinh
+                        viên</strong>
+                </template>
             </div>
         </div>
     </div>
@@ -147,6 +145,11 @@ import axios from "axios";
 import TitleStructure from "../../components/GlobalComponent/TitleStructure.vue";
 import ViewDetail from "@/components/Student/Form/ViewDetail.vue";
 import { mapGetters } from "vuex";
+
+
+
+
+
 
 
 export default {
@@ -352,6 +355,7 @@ export default {
             document.querySelector("#course").value = 'Tất cả'
             document.querySelector("#major").value = 'Tất cả'
             document.querySelector("#classStudent").value = 'Tất cả'
+
         },
         async searchInfo() {
             const token = localStorage.getItem("token");
@@ -370,13 +374,18 @@ export default {
             let major_filter = document.querySelector("#major").value
             let classStudent_filter = document.querySelector("#classStudent").value
 
+            //Kiểm tra dl 'tất cả'
+            const ob = {}
+            spell_filter != "Tất cả" ? ob.spellname = spell_filter : ''
+            course_filter != "Tất cả" ? ob.course = course_filter : ''
+            major_filter != "Tất cả" ? ob.major = major_filter : ''
+            classStudent_filter != "Tất cả" ? ob.classStudent = classStudent_filter : ''
 
-            await axios.post("http://localhost:3000/ministry/search-form",
+
+
+            await axios.post("http://localhost:3000/ministry/find-form",
                 {
-                    spell_filter,
-                    course_filter,
-                    major_filter,
-                    classStudent_filter
+                    ob
                 }
                 , {
                     headers: {
@@ -406,7 +415,42 @@ export default {
                     console.log(e)
                 })
 
-        }
+        },
+        async SearchForm() {
+            var arr_result = []
+            const token = localStorage.getItem("token");
+            await axios.post("http://localhost:3000/ministry/search-form",
+                {
+                    searchForm: document.querySelector('.search-form').value
+                }
+                , {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    }
+                }).then((data) => {
+                    data.data.forEach((item, index) => {
+                        let ob = {
+                            stt: index + 1,
+                            id: item._id,
+                            username: item.username,
+                            name: item.name,
+                            classStudent: item.classStudent,
+                            major: item.major,
+                            course: item.course,
+                            drl: item.drl,
+                            gpa: item.gpa,
+                            result: item.result,
+                            spellname: item.spellname,
+                            standard: item.standard,
+                            created: item.createdAt
+                        }
+                        arr_result.push(ob)
+                    })
+                    this.form = arr_result;
+                }).catch((e) => {
+                    console.log(e)
+                })
+        },
     }
 };
 </script>
@@ -443,5 +487,5 @@ export default {
     position: sticky;
     top: 0;
     background-color: white;
-}    
+}
 </style>

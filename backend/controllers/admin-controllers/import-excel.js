@@ -19,8 +19,11 @@ const importExcel = async (req, res) => {
             course: P_JSON[index].course
           });
         });
-        
-        if (arr_id) res.send(arr_id);
+        if (arr_id) res.json({
+          status: true,
+          message: "Tải file excel thành công!",
+          arr_id,
+      });;
       } 
       else {
         res.send("Fail");

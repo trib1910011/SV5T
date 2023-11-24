@@ -20,7 +20,7 @@
                 <button type="button" 
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#importAccount">IMPORT FILE EXCEL</button>
+                data-bs-target="#importAccount">NHẬP FILE DỮ LIỆU</button>
             </div>
             <div
                 class="list-account mt-5 table-wrapper-scroll-y my-custom-scrollbar fixTableHead"
