@@ -28,13 +28,9 @@
                                     ><strong>Mã đợt</strong></label
                                 >
                                 
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputSpellname"
-                                    name="spellname"
-                                    v-model="spellUpdate.spellname"
-                                />
+                                <div class="form-control" id="spellname">
+                                    {{ spellUpdate.spellname }}
+                                </div>
                             </div>
                             <div class="mb-3 row">
                                 <label
@@ -110,7 +106,7 @@
                         data-bs-dismiss="modal"
                         
                     >
-                        Xác nhận
+                        Lưu thay đổi
                     </button>
                 </div>
             </div>

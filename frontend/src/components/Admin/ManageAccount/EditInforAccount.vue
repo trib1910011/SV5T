@@ -28,7 +28,7 @@
                                     class="col-form-label px-0 py-2"
                                     ><strong>Tên đăng nhập:</strong></label
                                 >
-                                <div class="form-control" id="name">
+                                <div class="form-control" id="username">
                                     {{ accountUpdate.username }}
                                 </div>
                             </div>

@@ -23,7 +23,7 @@ const importExcel = async (req, res) => {
           status: true,
           message: "Tải file excel thành công!",
           arr_id,
-      });;
+      });
       } 
       else {
         res.send("Fail");

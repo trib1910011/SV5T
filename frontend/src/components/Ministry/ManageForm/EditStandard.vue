@@ -27,14 +27,10 @@
                                     class="col-form-label px-0"
                                     ><strong>Mã chi tiết tiêu chí</strong></label
                                 >
-                                
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputcodeStandard"
-                                    name="codeStandard"
-                                    v-model="standardUpdate.codeStandard"
-                                />
+                                <div class="form-control"
+                                    id="codeStandard">
+                                    {{ standardUpdate.codeStandard }}
+                                </div>
                             </div>
                             <div class="mb-3 row">
                                 <label
@@ -81,7 +77,7 @@
                         data-bs-dismiss="modal"
                         
                     >
-                        Xác nhận
+                        Lưu thay đổi
                     </button>
                 </div>
             </div>

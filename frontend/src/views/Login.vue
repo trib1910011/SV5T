@@ -23,7 +23,7 @@
                         type="text"
                         class="form-control"
                         id="login__name"
-                        placeholder="Mã số đăng nhập"
+                        placeholder="Mã đăng nhập"
                     />
                 </div>
                 <div class="mb-3">

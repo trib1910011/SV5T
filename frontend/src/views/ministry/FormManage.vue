@@ -16,7 +16,7 @@
                     Chưa đạt
                 </div>
             </div>
-            <div class="col-5" style="margin-left: 370px;">
+            <div class="col-5" style="margin-left: 450px;">
                 <div class="input-group mb-3 mt-3">
                     <span class="input-group-text"><strong>Họ tên</strong></span>
                     <input type="text" class="form-control search-form" placeholder="Nhập tên/mã sinh viên"
@@ -131,7 +131,7 @@
                     </tbody>
                 </table>
                 <template v-if="form.length == 0">
-                    <strong style="margin-left: 450px;font-size: 20px;color: red;">Không tìm thấy danh sách sinh
+                    <strong style="margin-left: 550px;font-size: 20px;color: red;">Không tìm thấy danh sách sinh
                         viên</strong>
                 </template>
             </div>
@@ -212,8 +212,6 @@ export default {
                         classStudent: item.classStudent,
                         major: item.major,
                         course: item.course,
-                        drl: item.drl,
-                        gpa: item.gpa,
                         result: item.result,
                         spellname: item.spellname,
                         standard: item.standard,
@@ -229,8 +227,6 @@ export default {
                         classStudent: item.classStudent,
                         major: item.major,
                         course: item.course,
-                        drl: item.drl,
-                        gpa: item.gpa,
                         result: item.result,
                         spellname: item.spellname,
                         standard: item.standard,
@@ -401,8 +397,6 @@ export default {
                             classStudent: item.classStudent,
                             major: item.major,
                             course: item.course,
-                            drl: item.drl,
-                            gpa: item.gpa,
                             result: item.result,
                             spellname: item.spellname,
                             standard: item.standard,
@@ -437,8 +431,6 @@ export default {
                             classStudent: item.classStudent,
                             major: item.major,
                             course: item.course,
-                            drl: item.drl,
-                            gpa: item.gpa,
                             result: item.result,
                             spellname: item.spellname,
                             standard: item.standard,

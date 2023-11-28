@@ -27,14 +27,10 @@
                                     class="col-form-label px-0"
                                     ><strong>Mã tiêu chí</strong></label
                                 >
-                                
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputcategoryCode"
-                                    name="categoryCode"
-                                    v-model="categoryUpdate.categoryCode"
-                                />
+                                <div class="form-control"
+                                    id="categoryCode">
+                                    {{ categoryUpdate.categoryCode }}
+                                </div>
                             </div>
                             <div class="mb-3 row">
                                 <label

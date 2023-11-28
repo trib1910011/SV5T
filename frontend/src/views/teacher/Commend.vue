@@ -1,12 +1,23 @@
 <template>
     <TitleStructure title="Danh sách sinh viên 5 tốt"></TitleStructure>
-    <select class="form-select select-type-spell" style="width: 100px;margin-left: 30px;border: solid green;background-color: yellowgreen;font-weight: bold;"
-        @click="SelectSpell">
-        <option value="Tất cả" selected style="font-weight: bold;">Tất cả</option>
-        <option v-for="(item) in spell" v-bind:value="item.name" :key="item" style="font-weight: bold;">
-            {{ item.name }}
-        </option>
-    </select>
+    <div style="display: flex;">
+        <select class="form-select select-type-spell"
+            style="width: 100px;margin-left: 30px;border: solid green;background-color: yellowgreen;font-weight: bold;"
+            @click="SelectSpell">
+            <option value="Tất cả" selected style="font-weight: bold;">Tất cả</option>
+            <option v-for="(item) in spell" v-bind:value="item.name" :key="item" style="font-weight: bold;">
+                {{ item.name }}
+            </option>
+        </select>
+    </div>
+    <div class="input-group mb-3 mt-3" style="width: 400px;margin-left: 800px;">
+        <span class="input-group-text"><strong>Tìm kiếm</strong></span>
+        <input type="text" class="form-control search-form" placeholder="Nhập tên/mã sinh viên" aria-label="Username"
+            aria-describedby="basic-addon1">
+        <button type="button" class="btn btn-primary" @click="SearchForm">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
     <div style="flex-wrap: wrap; display: flex;">
         <template v-for="(item, index) in form" :key="index">
             <div class="d-flex col-3 rounded-5 mt-3 mx-5" style="justify-content: center;border: 3px solid green;background-color: rgb(204, 246, 242);">
@@ -159,6 +170,41 @@ export default {
             })
 
         },
+        async SearchForm() {
+            var arr_result = []
+            const token = localStorage.getItem("token");
+            await axios.post("http://localhost:3000/teacher/search-form",
+                {
+                    searchForm: document.querySelector('.search-form').value
+                }
+                , {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    }
+                }).then((data) => {
+                    console.log(data.data)
+                    data.data.forEach((item, index) => {
+                        let ob = {
+                            stt: index + 1,
+                            id: item._id,
+                            username: item.username,
+                            name: item.name,
+                            urlAvatar: item.urlAvatar,
+                            classStudent: item.classStudent,
+                            major: item.major,
+                            course: item.course,
+                            result: item.result,
+                            spellname: item.spellname,
+                            standard: item.standard,
+                            created: item.created
+                        }
+                        arr_result.push(ob)
+                    })
+                    this.form = arr_result;
+                }).catch((e) => {
+                    console.log(e)
+                })
+        }
     }
 };
 
