@@ -44,11 +44,12 @@
                                         <div class="col-6">
                                             <strong>Ngày kết thúc: </strong> {{ item.end }}
                                         </div>
-                                        <div class="col-12 d-flex justify-content-center mt-4">
+                                        <div class="col-12 d-flex justify-content-center mt-4"
+                                            >
 
-                                            <button type="button" class="btn btn-outline-success p-2" data-bs-toggle="modal"
-                                                data-bs-target="#AssessResultModal" style="font-size: 15px"
-                                                @click="registerForm(item.id)">
+                                            <button type="button" class="btn btn-outline-success p-2"
+                                                data-bs-toggle="modal" data-bs-target="#AssessResultModal"
+                                                style="font-size: 15px" @click="checkTime(item.id, item.start, item.end)">
                                                 <i class="bi bi-vector-pen"></i> Đăng ký xét
                                             </button>
                                         </div>
@@ -121,13 +122,12 @@ export default {
             spell: [],
             empty_check: "",
             form: [],
-            passData: {}
+            passData: {},
         };
     },
     created() {
         this.showSpell()
         this.showForm()
-        // this.sendResult()
     },
     computed: {
         ...mapGetters({ st: "getAccount" }),
@@ -197,24 +197,7 @@ export default {
             const arr_result = []
             data_form.forEach((item, index) => {
                 if (item.studentId.username == this.st.username) {
-                    //Xử lý trạng thái
-                    // const count_check = item.count_check
-                    // const arr_count_check = count_check.map((item1) => {
-                    //     if (item1.split("-")[1] == "Đạt") {
-                    //         return item1
-                    //     }
-                    // })
 
-                    // let status_check = ""
-                    // if (count_check.length != 3) {
-                    //     status_check = "Đang xử lý"
-                    // } else if (count_check.length == 3) {
-                    //     if (arr_count_check.length >= 2) {
-                    //         status_check = "Đạt"
-                    //     } else if (arr_count_check.length <= 1) {
-                    //         status_check = "Chưa đạt"
-                    //     }
-                    // }
 
 
                     let ob = {
@@ -224,8 +207,6 @@ export default {
                         name: item.studentId.name,
                         major: item.major,
                         course: item.course,
-                        drl: item.drl,
-                        gpa: item.gpa,
                         result: item.result,
                         spellname: item.spellname,
                         standard: item.standard,
@@ -253,48 +234,23 @@ export default {
             })
 
         },
-        // async sendResult() {
-        // const token = localStorage.getItem("token");
-        // const data1 = await axios.get("http://localhost:3000/student/get-form", {
-        //     headers: {
-        //         Authorization: "Bearer " + token,
-        //     }
-        // })
-
-        // const data_form = data1.data.arr
-        // console.log(data_form)
-        // const arr_result = []
-        // data_form.forEach((item) => {
-        //     if (item.studentId.username == this.st.username) {
-        //         if (item.count_check.length == 3) {
-        //             const check_pass = item.count_check;
-        //             const count_check = check_pass.map((item1)=>{
-        //                 if(item1.split("-")[1] == "Đạt"){
-        //                     return item1;
-        //                 }
-        //             })
+        async checkTime(id_input, input_start, input_end) {
+            const today = new Date();
+            const startDate = new Date(input_start);
+            const endDate = new Date(input_end);
+            if (today >= startDate && today <= endDate) 
+            {   
+                document.querySelector('.modal-content').style.display='block'
+                this.registerForm(id_input)
+                return;
+            } else {
+                alert('ĐÃ QUA THỜI GIAN ĐĂNG KÝ')
+                document.querySelector('.modal-content').style.display='none'
+            }
 
 
 
-        //             if(count_check.length >= 2){
-        //                 arr_result.push(item)
-        //             }
-        //         }
-        //     }
-        // })
-
-        // console.log(arr_result)
-        // const arr_result_solver = arr_result.map((item)=>{
-        //     item.result = "Đạt"
-        //     return item
-        // })
-
-
-
-
-
-        // this.form = arr_result_solver;
-        // },
+        }
     }
 
 }    
@@ -319,5 +275,5 @@ export default {
     position: sticky;
     top: 0;
     background-color: white;
-}    
+}
 </style>
